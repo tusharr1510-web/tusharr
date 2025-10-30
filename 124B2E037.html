@@ -1,0 +1,363 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tushar R. Rathod — Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --accent: #3b82f6;
+      --dark: #0a0f1c;
+      --muted: #9ca3af;
+      --light: #f0f4ff;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #e6eef8;
+      background: var(--dark);
+      overflow-x: hidden;
+    }
+
+    /* ---------- Animations ---------- */
+    @keyframes fadeUp {
+      0% { opacity: 0; transform: translateY(30px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate {
+      opacity: 0;
+      animation: fadeUp 0.9s ease forwards;
+    }
+
+    /* ---------- Menu ---------- */
+    .menu-btn {
+      position: fixed;
+      top: 22px;
+      right: 25px;
+      width: 30px;
+      height: 22px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    .menu-btn div {
+      width: 100%;
+      height: 3px;
+      background: var(--accent);
+      margin: 4px 0;
+      border-radius: 2px;
+      transition: all 0.4s;
+    }
+
+    .menu-btn.active div:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+    .menu-btn.active div:nth-child(2) { opacity: 0; }
+    .menu-btn.active div:nth-child(3) { transform: rotate(-45deg) translate(6px, -7px); }
+
+    nav {
+      position: fixed;
+      top: 0;
+      right: -250px;
+      width: 230px;
+      height: 100%;
+      background: rgba(15, 23, 42, 0.97);
+      backdrop-filter: blur(12px);
+      transition: right 0.4s ease;
+      z-index: 999;
+      padding-top: 100px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    nav.active { right: 0; }
+
+    nav a {
+      color: #e6eef8;
+      text-decoration: none;
+      font-size: 18px;
+      margin: 14px 0;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    nav a:hover { color: var(--accent); }
+
+    /* ---------- Sections ---------- */
+    header {
+      text-align: center;
+      padding: 80px 20px;
+      background: linear-gradient(180deg, #111c38, #0b1225);
+    }
+
+    .avatar img {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      box-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
+    }
+
+    h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 40px;
+      margin-top: 20px;
+      letter-spacing: 0.5px;
+    }
+
+    p.subtitle {
+      font-size: 18px;
+      color: var(--accent);
+      margin-top: 6px;
+      font-weight: 600;
+    }
+
+    p.lead {
+      color: var(--muted);
+      font-size: 17px;
+      margin-top: 10px;
+      max-width: 700px;
+      margin-inline: auto;
+    }
+
+    section {
+      padding: 70px 20px;
+      max-width: 950px;
+      margin: 0 auto;
+    }
+
+    h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 30px;
+      margin-bottom: 20px;
+      color: var(--light);
+      border-left: 5px solid var(--accent);
+      padding-left: 15px;
+      text-shadow: 0 0 10px rgba(37, 99, 235, 0.4);
+    }
+
+    p, li {
+      font-size: 17px;
+      color: #eaeef6;
+      line-height: 1.8;
+    }
+
+    /* ---------- Section Themes ---------- */
+    #about { background: linear-gradient(180deg, #0a0f1c, #111c38); }
+    #skills { background: linear-gradient(180deg, #111c38, #0a1b34); }
+    #projects { background: linear-gradient(180deg, #0a1b34, #071124); }
+    #internship { background: linear-gradient(180deg, #071124, #0a0f1c); }
+    #achievements { background: linear-gradient(180deg, #0a0f1c, #111c38); }
+    #resume { background: linear-gradient(180deg, #111c38, #0a0f1c); }
+    #contact { background: linear-gradient(180deg, #0a0f1c, #0b1225); }
+
+    /* ---------- Skills ---------- */
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 15px;
+    }
+
+    .skill {
+      background: rgba(255,255,255,0.08);
+      padding: 10px 16px;
+      border-radius: 999px;
+      font-size: 15px;
+      color: var(--muted);
+      transition: all 0.3s;
+    }
+
+    .skill:hover {
+      background: var(--accent);
+      color: white;
+      transform: scale(1.08);
+    }
+
+    .project, .internship, .achievement {
+      margin-bottom: 22px;
+    }
+
+    .project h3, .internship h3, .achievement h3 {
+      color: var(--accent);
+      font-size: 20px;
+      margin-bottom: 8px;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 18px;
+      border-radius: 8px;
+      background: var(--accent);
+      color: white;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s;
+    }
+
+    .btn:hover {
+      background: #1d4ed8;
+      transform: translateY(-2px);
+    }
+
+    iframe.resume-embed {
+      width: 100%;
+      height: 150px; /* smaller */
+      border-radius: 8px;
+      border: 1px solid rgba(255,255,255,0.1);
+      margin-top: 12px;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      padding: 40px 0;
+      background: #0b1225;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <!-- 3-dot menu -->
+  <div class="menu-btn" id="menuBtn">
+    <div></div><div></div><div></div>
+  </div>
+
+  <!-- Side navigation -->
+  <nav id="sideNav">
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#internship">Internship</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#resume">Resume</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <header class="animate">
+    <div class="avatar"><img src="tush.jpg" alt="Tushar Rathod"></div>
+    <h1>Tushar Ramesh Rathod</h1>
+    <p class="subtitle">ENTC Engineer</p>
+    <p class="lead">Embedded Systems | IoT | Control Systems | Signal Processing</p>
+  </header>
+
+  <section id="about" class="animate">
+    <h2>About</h2>
+    <p>Hello — I'm <strong>Tushar Ramesh Rathod</strong>, an engineering student and enthusiast focused on embedded systems, IoT, and control systems. I design and prototype hardware + firmware solutions using ESP32, sensors, and displays. I also use MATLAB/Simulink and Multisim for simulations and control design.</p>
+  </section>
+
+  <section id="skills" class="animate">
+    <h2>Technical Skills</h2>
+    <div class="skills">
+      <span class="skill">ESP32</span>
+      <span class="skill">C / C++ / Arduino</span>
+      <span class="skill">MATLAB / Simulink</span>
+      <span class="skill">Multisim</span>
+      <span class="skill">Embedded C</span>
+      <span class="skill">Python</span>
+      <span class="skill">HTML / CSS / JavaScript</span>
+      <span class="skill">IoT & Networking</span>
+      <span class="skill">Signal Processing</span>
+      <span class="skill">SSD1306 / OLED</span>
+      <span class="skill">PCB Design</span>
+      <span class="skill">Git / Version Control</span>
+    </div>
+  </section>
+
+  <section id="projects" class="animate">
+    <h2>Projects</h2>
+    <div class="project">
+      <h3>ESP32-Based Audio-to-Text IoT Project with OLED Display</h3>
+      <p>Designed an ESP32 system to transcribe audio and display text on SSD1306 OLED using MAX4466 mic sensor. Edge processing improves accessibility for the hearing impaired.</p>
+    </div>
+    <div class="project">
+      <h3>Temperature & Humidity Based Fan Control for Grain Storage</h3>
+      <p>Control system prototype using temperature & humidity sensors and Simulink logic for automated grain preservation.</p>
+    </div>
+    <div class="project">
+      <h3>Smart Density-Based Traffic Control System</h3>
+      <p>ESP32-based adaptive traffic light controller using ultrasonic sensors for real-time vehicle density detection with IoT integration.</p>
+    </div>
+  </section>
+
+  <section id="internship" class="animate">
+    <h2>Internship</h2>
+    <div class="internship">
+      <h3>Embedded Systems Intern — XYZ Tech Solutions</h3>
+      <p>Worked on IoT systems using ESP32 and MQTT for real-time automation. Developed firmware in Embedded C and implemented OTA updates. Contributed to testing and PCB validation.</p>
+    </div>
+  </section>
+
+  <section id="achievements" class="animate">
+    <h2>Achievements</h2>
+    <div class="achievement">
+      <h3>🏅 IoT Prototype Competition Winner</h3>
+      <p>Awarded for best IoT innovation at college-level techfest for “Audio-to-Text IoT Project.”</p>
+    </div>
+    <div class="achievement">
+      <h3>📜 MATLAB Certification</h3>
+      <p>Completed MATLAB for Engineers course covering signal processing and control system simulations.</p>
+    </div>
+  </section>
+
+  <section id="resume" class="animate">
+    <h2>Resume</h2>
+    <p>Download or preview my resume below.</p>
+    <a class="btn" href="Compressed_TUSHAR(RESUMEE).pdf" download>Download Resume</a>
+    <iframe class="resume-embed" src="Compressed_TUSHAR(RESUMEE).pdf"></iframe>
+  </section>
+
+  <section id="contact" class="animate">
+    <h2>Contact</h2>
+    <p>📧 <strong>Email:</strong> <a href="mailto:tusharr1510@gmail.com">tusharr1510@gmail.com</a></p>
+    <p>🔗 <strong>LinkedIn:</strong> <a href="https://www.linkedin.com/in/tushar-rathod-9050a535" target="_blank">linkedin.com/in/tushar-rathod-9050a535</a></p>
+    <p>💻 <strong>GitHub:</strong> <a href="https://github.com/tusharr1510-web" target="_blank">github.com/tusharr1510-web</a></p>
+  </section>
+
+  <footer>
+    <p>Built with ❤️ by Tushar • Deployed on GitHub Pages</p>
+  </footer>
+
+  <script>
+    const menuBtn = document.getElementById('menuBtn');
+    const sideNav = document.getElementById('sideNav');
+
+    menuBtn.addEventListener('click', () => {
+      menuBtn.classList.toggle('active');
+      sideNav.classList.toggle('active');
+    });
+
+    document.querySelectorAll('nav a').forEach(link => {
+      link.addEventListener('click', () => {
+        sideNav.classList.remove('active');
+        menuBtn.classList.remove('active');
+      });
+    });
+
+    // Scroll animation
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('animate');
+        }
+      });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('section, header').forEach(sec => observer.observe(sec));
+  </script>
+</body>
+</html>
